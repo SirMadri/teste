@@ -28,8 +28,8 @@ local useItemRemote = Net and Net:FindFirstChild('RE/UseItem')
 local RequestBuy = Net:WaitForChild('RF/CoinsShopService/RequestBuy')
 
 local placeID = game.PlaceId
-local url = "http://localhost:8000/job" -- url
-local wsUrl = "ws://localhost:8000/ws" -- WebSocket URL (servidor local)
+local url = "http://join.bloxlabs.com.br:8000/job" -- url
+local wsUrl = "ws://join.bloxlabs.com.br:8000/ws" -- WebSocket URL (servidor local)
 local methods = getgenv().method
 local key = "300m" -- key do script (3m, 5m, 10m, 50m, 100m, 300m)
 local timeAPI = "https://worldtimeapi.org/api/timezone/America/Sao_Paulo"
