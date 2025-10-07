@@ -22,6 +22,22 @@ local THEMES = {
         TEXT_SECONDARY = Color3.fromRGB(148, 163, 184),
         BORDER = Color3.fromRGB(71, 85, 105)
     },
+
+    White = {
+        PRIMARY = Color3.fromRGB(59, 130, 246),
+        SECONDARY = Color3.fromRGB(96, 165, 250),
+        SUCCESS = Color3.fromRGB(34, 197, 94),
+        WARNING = Color3.fromRGB(234, 179, 8),
+        WARNING_SECONDARY = Color3.fromRGB(250, 204, 21),
+        DANGER = Color3.fromRGB(239, 68, 68),
+        ERROR = Color3.fromRGB(220, 38, 38),
+        ERROR_SECONDARY = Color3.fromRGB(248, 113, 113),
+        SURFACE = Color3.fromRGB(255, 255, 255),
+        CARD = Color3.fromRGB(249, 250, 251),
+        TEXT_PRIMARY = Color3.fromRGB(17, 24, 39),
+        TEXT_SECONDARY = Color3.fromRGB(107, 114, 128),
+        BORDER = Color3.fromRGB(229, 231, 235)
+    },
     
     Dark = {
         PRIMARY = Color3.fromRGB(99, 102, 241),
@@ -54,6 +70,7 @@ local THEMES = {
         TEXT_SECONDARY = Color3.fromRGB(140, 140, 150),
         BORDER = Color3.fromRGB(30, 30, 35)
     },
+
     Ruby = {
         PRIMARY = Color3.fromRGB(185, 28, 28),
         SECONDARY = Color3.fromRGB(220, 38, 38),
@@ -68,6 +85,22 @@ local THEMES = {
         TEXT_PRIMARY = Color3.fromRGB(254, 226, 226),
         TEXT_SECONDARY = Color3.fromRGB(185, 120, 120),
         BORDER = Color3.fromRGB(127, 29, 29)
+    },
+
+    WhiteRuby = {
+        PRIMARY = Color3.fromRGB(225, 29, 72),
+        SECONDARY = Color3.fromRGB(244, 63, 94),
+        SUCCESS = Color3.fromRGB(34, 197, 94),
+        WARNING = Color3.fromRGB(234, 179, 8),
+        WARNING_SECONDARY = Color3.fromRGB(250, 204, 21),
+        DANGER = Color3.fromRGB(190, 18, 60),
+        ERROR = Color3.fromRGB(220, 38, 38),
+        ERROR_SECONDARY = Color3.fromRGB(248, 113, 113),
+        SURFACE = Color3.fromRGB(255, 250, 252),
+        CARD = Color3.fromRGB(254, 242, 247),
+        TEXT_PRIMARY = Color3.fromRGB(63, 17, 30),
+        TEXT_SECONDARY = Color3.fromRGB(136, 19, 55),
+        BORDER = Color3.fromRGB(251, 207, 232)
     }
 }
 
@@ -110,17 +143,23 @@ function Labs:SetTheme(themeName)
                                 if element.BackgroundColor3 == THEMES.Normal.CARD or 
                                    element.BackgroundColor3 == THEMES.Dark.CARD or
                                    element.BackgroundColor3 == THEMES.ExtraDark.CARD or
-                                   element.BackgroundColor3 == THEMES.Ruby.CARD then
+                                   element.BackgroundColor3 == THEMES.Ruby.CARD or
+                                   element.BackgroundColor3 == THEMES.White.CARD or
+                                   element.BackgroundColor3 == THEMES.WhiteRuby.CARD then
                                     element.BackgroundColor3 = currentColors.CARD
                                 elseif element.BackgroundColor3 == THEMES.Normal.SURFACE or
                                        element.BackgroundColor3 == THEMES.Dark.SURFACE or
                                        element.BackgroundColor3 == THEMES.ExtraDark.SURFACE or
-                                       element.BackgroundColor3 == THEMES.Ruby.SURFACE then
+                                       element.BackgroundColor3 == THEMES.Ruby.SURFACE or
+                                       element.BackgroundColor3 == THEMES.White.SURFACE or
+                                       element.BackgroundColor3 == THEMES.WhiteRuby.SURFACE then
                                     element.BackgroundColor3 = currentColors.SURFACE
                                 elseif element.BackgroundColor3 == THEMES.Normal.BORDER or
                                        element.BackgroundColor3 == THEMES.Dark.BORDER or
                                        element.BackgroundColor3 == THEMES.ExtraDark.BORDER or
-                                       element.BackgroundColor3 == THEMES.Ruby.BORDER then
+                                       element.BackgroundColor3 == THEMES.Ruby.BORDER or
+                                       element.BackgroundColor3 == THEMES.White.BORDER or
+                                       element.BackgroundColor3 == THEMES.WhiteRuby.BORDER then
                                     element.BackgroundColor3 = currentColors.BORDER
                                 end
                             end
@@ -129,19 +168,25 @@ function Labs:SetTheme(themeName)
                                 if element.BackgroundColor3 == THEMES.Normal.CARD or
                                    element.BackgroundColor3 == THEMES.Dark.CARD or
                                    element.BackgroundColor3 == THEMES.ExtraDark.CARD or
-                                   element.BackgroundColor3 == THEMES.Ruby.CARD then
+                                   element.BackgroundColor3 == THEMES.Ruby.CARD or
+                                   element.BackgroundColor3 == THEMES.White.CARD or
+                                   element.BackgroundColor3 == THEMES.WhiteRuby.CARD then
                                     element.BackgroundColor3 = currentColors.CARD
                                 end
                                 
                                 if element.TextColor3 == THEMES.Normal.TEXT_PRIMARY or
                                    element.TextColor3 == THEMES.Dark.TEXT_PRIMARY or
                                    element.TextColor3 == THEMES.ExtraDark.TEXT_PRIMARY or
-                                   element.TextColor3 == THEMES.Ruby.TEXT_PRIMARY then
+                                   element.TextColor3 == THEMES.Ruby.TEXT_PRIMARY or
+                                   element.TextColor3 == THEMES.White.TEXT_PRIMARY or
+                                   element.TextColor3 == THEMES.WhiteRuby.TEXT_PRIMARY then
                                     element.TextColor3 = currentColors.TEXT_PRIMARY
                                 elseif element.TextColor3 == THEMES.Normal.TEXT_SECONDARY or
                                        element.TextColor3 == THEMES.Dark.TEXT_SECONDARY or
                                        element.TextColor3 == THEMES.ExtraDark.TEXT_SECONDARY or
-                                       element.TextColor3 == THEMES.Ruby.TEXT_SECONDARY then
+                                       element.TextColor3 == THEMES.Ruby.TEXT_SECONDARY or
+                                       element.TextColor3 == THEMES.White.TEXT_SECONDARY or
+                                       element.TextColor3 == THEMES.WhiteRuby.TEXT_SECONDARY then
                                     element.TextColor3 = currentColors.TEXT_SECONDARY
                                 end
                             end
@@ -150,12 +195,16 @@ function Labs:SetTheme(themeName)
                                 if element.TextColor3 == THEMES.Normal.TEXT_PRIMARY or
                                    element.TextColor3 == THEMES.Dark.TEXT_PRIMARY or
                                    element.TextColor3 == THEMES.ExtraDark.TEXT_PRIMARY or
-                                   element.TextColor3 == THEMES.Ruby.TEXT_PRIMARY then
+                                   element.TextColor3 == THEMES.Ruby.TEXT_PRIMARY or
+                                   element.TextColor3 == THEMES.White.TEXT_PRIMARY or
+                                   element.TextColor3 == THEMES.WhiteRuby.TEXT_PRIMARY then
                                     element.TextColor3 = currentColors.TEXT_PRIMARY
                                 elseif element.TextColor3 == THEMES.Normal.TEXT_SECONDARY or
                                        element.TextColor3 == THEMES.Dark.TEXT_SECONDARY or
                                        element.TextColor3 == THEMES.ExtraDark.TEXT_SECONDARY or
-                                       element.TextColor3 == THEMES.Ruby.TEXT_SECONDARY then
+                                       element.TextColor3 == THEMES.Ruby.TEXT_SECONDARY or
+                                       element.TextColor3 == THEMES.White.TEXT_SECONDARY or
+                                       element.TextColor3 == THEMES.WhiteRuby.TEXT_SECONDARY then
                                     element.TextColor3 = currentColors.TEXT_SECONDARY
                                 end
                             end
@@ -164,12 +213,16 @@ function Labs:SetTheme(themeName)
                                 if element.ImageColor3 == THEMES.Normal.TEXT_PRIMARY or
                                    element.ImageColor3 == THEMES.Dark.TEXT_PRIMARY or
                                    element.ImageColor3 == THEMES.ExtraDark.TEXT_PRIMARY or
-                                   element.ImageColor3 == THEMES.Ruby.TEXT_PRIMARY then
+                                   element.ImageColor3 == THEMES.Ruby.TEXT_PRIMARY or
+                                   element.ImageColor3 == THEMES.White.TEXT_PRIMARY or
+                                   element.ImageColor3 == THEMES.WhiteRuby.TEXT_PRIMARY then
                                     element.ImageColor3 = currentColors.TEXT_PRIMARY
                                 elseif element.ImageColor3 == THEMES.Normal.TEXT_SECONDARY or
                                        element.ImageColor3 == THEMES.Dark.TEXT_SECONDARY or
                                        element.ImageColor3 == THEMES.ExtraDark.TEXT_SECONDARY or
-                                       element.ImageColor3 == THEMES.Ruby.TEXT_SECONDARY then
+                                       element.ImageColor3 == THEMES.Ruby.TEXT_SECONDARY or
+                                       element.ImageColor3 == THEMES.White.TEXT_SECONDARY or
+                                       element.ImageColor3 == THEMES.WhiteRuby.TEXT_SECONDARY then
                                     element.ImageColor3 = currentColors.TEXT_SECONDARY
                                 end
                             end
