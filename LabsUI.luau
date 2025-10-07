@@ -1403,6 +1403,191 @@ function Labs:AddParagraph(tab, config)
     return textBox
 end
 
+function Labs:AddKeybind(tab, config)
+    local keybindSettings = {
+        Title = config.Title or "Keybind",
+        Mode = config.Mode or "Toggle",
+        Default = config.Default or "E",
+        Callback = config.Callback or function() end,
+        ChangedCallback = config.ChangedCallback or function() end
+    }
+    
+    local keybindContainer = Instance.new("Frame")
+    keybindContainer.Size = UDim2.new(1, 0, 0, 42)
+    keybindContainer.BackgroundColor3 = currentColors.CARD
+    keybindContainer.BackgroundTransparency = 0.3
+    keybindContainer.BorderSizePixel = 0
+    keybindContainer.ZIndex = 2
+    keybindContainer.Parent = tab.Page
+    
+    local containerCorner = Instance.new("UICorner")
+    containerCorner.CornerRadius = UDim.new(0, 10)
+    containerCorner.Parent = keybindContainer
+    
+    local keybindLabel = Instance.new("TextLabel")
+    keybindLabel.Size = UDim2.new(1, -120, 1, 0)
+    keybindLabel.BackgroundTransparency = 1
+    keybindLabel.Text = keybindSettings.Title
+    keybindLabel.TextColor3 = currentColors.TEXT_PRIMARY
+    keybindLabel.Font = Enum.Font.GothamBold
+    keybindLabel.TextSize = 12
+    keybindLabel.TextXAlignment = Enum.TextXAlignment.Left
+    keybindLabel.ZIndex = 3
+    keybindLabel.Parent = keybindContainer
+    
+    local labelPadding = Instance.new("UIPadding")
+    labelPadding.PaddingLeft = UDim.new(0, 12)
+    labelPadding.Parent = keybindLabel
+    
+    local keybindButton = Instance.new("TextButton")
+    keybindButton.Size = UDim2.new(0, 100, 0, 28)
+    keybindButton.Position = UDim2.new(1, -110, 0.5, 0)
+    keybindButton.AnchorPoint = Vector2.new(0, 0.5)
+    keybindButton.BackgroundColor3 = currentColors.SURFACE
+    keybindButton.BackgroundTransparency = 0.2
+    keybindButton.BorderSizePixel = 0
+    keybindButton.Text = keybindSettings.Default
+    keybindButton.TextColor3 = currentColors.TEXT_PRIMARY
+    keybindButton.Font = Enum.Font.GothamBold
+    keybindButton.TextSize = 11
+    keybindButton.ZIndex = 3
+    keybindButton.AutoButtonColor = false
+    keybindButton.Parent = keybindContainer
+    
+    local buttonCorner = Instance.new("UICorner")
+    buttonCorner.CornerRadius = UDim.new(0, 6)
+    buttonCorner.Parent = keybindButton
+    
+    local currentKeybind = keybindSettings.Default
+    local listening = false
+    local toggleState = false
+    local holdingKey = false
+    
+    local keyCodeMap = {
+        ["MB1"] = Enum.UserInputType.MouseButton1,
+        ["MB2"] = Enum.UserInputType.MouseButton2,
+        ["MB3"] = Enum.UserInputType.MouseButton3
+    }
+    
+    local function getKeyName(input)
+        if input.UserInputType == Enum.UserInputType.MouseButton1 then
+            return "MB1"
+        elseif input.UserInputType == Enum.UserInputType.MouseButton2 then
+            return "MB2"
+        elseif input.UserInputType == Enum.UserInputType.MouseButton3 then
+            return "MB3"
+        elseif input.KeyCode and input.KeyCode ~= Enum.KeyCode.Unknown then
+            return input.KeyCode.Name
+        end
+        return "Unknown"
+    end
+    
+    local function isKeybindMatch(input)
+        local keyName = getKeyName(input)
+        return keyName == currentKeybind
+    end
+    
+    keybindButton.MouseEnter:Connect(function()
+        if not listening then
+            animate(keybindButton, {BackgroundTransparency = 0.05}, 0.2)
+        end
+    end)
+    
+    keybindButton.MouseLeave:Connect(function()
+        if not listening then
+            animate(keybindButton, {BackgroundTransparency = 0.2}, 0.2)
+        end
+    end)
+    
+    keybindButton.MouseButton1Click:Connect(function()
+        if not listening then
+            listening = true
+            keybindButton.Text = "..."
+            animate(keybindButton, {BackgroundColor3 = currentColors.PRIMARY, BackgroundTransparency = 0.3}, 0.2)
+        end
+    end)
+    
+    local inputConnection
+    inputConnection = UserInputService.InputBegan:Connect(function(input, gameProcessed)
+        if listening then
+            if input.UserInputType == Enum.UserInputType.Keyboard or 
+               input.UserInputType == Enum.UserInputType.MouseButton1 or
+               input.UserInputType == Enum.UserInputType.MouseButton2 or
+               input.UserInputType == Enum.UserInputType.MouseButton3 then
+                
+                local keyName = getKeyName(input)
+                
+                if keyName ~= "Unknown" and keyName ~= "Escape" then
+                    currentKeybind = keyName
+                    keybindButton.Text = currentKeybind
+                    listening = false
+                    
+                    animate(keybindButton, {BackgroundColor3 = currentColors.SURFACE, BackgroundTransparency = 0.2}, 0.2)
+                    
+                    pcall(keybindSettings.ChangedCallback, keyName)
+                elseif keyName == "Escape" then
+                    keybindButton.Text = currentKeybind
+                    listening = false
+                    animate(keybindButton, {BackgroundColor3 = currentColors.SURFACE, BackgroundTransparency = 0.2}, 0.2)
+                end
+            end
+            return
+        end
+        
+        if not gameProcessed and isKeybindMatch(input) then
+            if keybindSettings.Mode == "Always" then
+                pcall(keybindSettings.Callback, true)
+            elseif keybindSettings.Mode == "Toggle" then
+                toggleState = not toggleState
+                pcall(keybindSettings.Callback, toggleState)
+                
+                if toggleState then
+                    animate(keybindContainer, {BackgroundTransparency = 0.1}, 0.2)
+                else
+                    animate(keybindContainer, {BackgroundTransparency = 0.3}, 0.2)
+                end
+            elseif keybindSettings.Mode == "Hold" then
+                holdingKey = true
+                pcall(keybindSettings.Callback, true)
+                animate(keybindContainer, {BackgroundTransparency = 0.1}, 0.2)
+            end
+        end
+    end)
+    
+    UserInputService.InputEnded:Connect(function(input, gameProcessed)
+        if not listening and isKeybindMatch(input) then
+            if keybindSettings.Mode == "Hold" and holdingKey then
+                holdingKey = false
+                pcall(keybindSettings.Callback, false)
+                animate(keybindContainer, {BackgroundTransparency = 0.3}, 0.2)
+            end
+        end
+    end)
+    
+    return {
+        Container = keybindContainer,
+        SetValue = function(newKey)
+            currentKeybind = newKey
+            keybindButton.Text = newKey
+            pcall(keybindSettings.ChangedCallback, newKey)
+        end,
+        GetValue = function()
+            return currentKeybind
+        end,
+        SetMode = function(newMode)
+            if newMode == "Always" or newMode == "Toggle" or newMode == "Hold" then
+                keybindSettings.Mode = newMode
+                toggleState = false
+                holdingKey = false
+                animate(keybindContainer, {BackgroundTransparency = 0.3}, 0.2)
+            end
+        end,
+        GetMode = function()
+            return keybindSettings.Mode
+        end
+    }
+end
+
 local notifications = {}
 local MAX_NOTIFICATIONS = 5
 local processing = false
