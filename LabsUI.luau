@@ -53,6 +53,21 @@ local THEMES = {
         TEXT_PRIMARY = Color3.fromRGB(255, 255, 255),
         TEXT_SECONDARY = Color3.fromRGB(140, 140, 150),
         BORDER = Color3.fromRGB(30, 30, 35)
+    },
+    Ruby = {
+        PRIMARY = Color3.fromRGB(185, 28, 28),
+        SECONDARY = Color3.fromRGB(220, 38, 38),
+        SUCCESS = Color3.fromRGB(34, 197, 94),
+        WARNING = Color3.fromRGB(234, 179, 8),
+        WARNING_SECONDARY = Color3.fromRGB(250, 204, 21),
+        DANGER = Color3.fromRGB(254, 226, 226),
+        ERROR = Color3.fromRGB(220, 38, 38),
+        ERROR_SECONDARY = Color3.fromRGB(248, 113, 113),
+        SURFACE = Color3.fromRGB(25, 15, 15),
+        CARD = Color3.fromRGB(45, 20, 20),
+        TEXT_PRIMARY = Color3.fromRGB(254, 226, 226),
+        TEXT_SECONDARY = Color3.fromRGB(185, 120, 120),
+        BORDER = Color3.fromRGB(127, 29, 29)
     }
 }
 
@@ -94,15 +109,18 @@ function Labs:SetTheme(themeName)
                             if element:IsA("Frame") and element.Name ~= "Shadow" and element.Name ~= "Glow" then
                                 if element.BackgroundColor3 == THEMES.Normal.CARD or 
                                    element.BackgroundColor3 == THEMES.Dark.CARD or
-                                   element.BackgroundColor3 == THEMES.ExtraDark.CARD then
+                                   element.BackgroundColor3 == THEMES.ExtraDark.CARD or
+                                   element.BackgroundColor3 == THEMES.Ruby.CARD then
                                     element.BackgroundColor3 = currentColors.CARD
                                 elseif element.BackgroundColor3 == THEMES.Normal.SURFACE or
                                        element.BackgroundColor3 == THEMES.Dark.SURFACE or
-                                       element.BackgroundColor3 == THEMES.ExtraDark.SURFACE then
+                                       element.BackgroundColor3 == THEMES.ExtraDark.SURFACE or
+                                       element.BackgroundColor3 == THEMES.Ruby.SURFACE then
                                     element.BackgroundColor3 = currentColors.SURFACE
                                 elseif element.BackgroundColor3 == THEMES.Normal.BORDER or
                                        element.BackgroundColor3 == THEMES.Dark.BORDER or
-                                       element.BackgroundColor3 == THEMES.ExtraDark.BORDER then
+                                       element.BackgroundColor3 == THEMES.ExtraDark.BORDER or
+                                       element.BackgroundColor3 == THEMES.Ruby.BORDER then
                                     element.BackgroundColor3 = currentColors.BORDER
                                 end
                             end
@@ -110,17 +128,20 @@ function Labs:SetTheme(themeName)
                             if element:IsA("TextButton") then
                                 if element.BackgroundColor3 == THEMES.Normal.CARD or
                                    element.BackgroundColor3 == THEMES.Dark.CARD or
-                                   element.BackgroundColor3 == THEMES.ExtraDark.CARD then
+                                   element.BackgroundColor3 == THEMES.ExtraDark.CARD or
+                                   element.BackgroundColor3 == THEMES.Ruby.CARD then
                                     element.BackgroundColor3 = currentColors.CARD
                                 end
                                 
                                 if element.TextColor3 == THEMES.Normal.TEXT_PRIMARY or
                                    element.TextColor3 == THEMES.Dark.TEXT_PRIMARY or
-                                   element.TextColor3 == THEMES.ExtraDark.TEXT_PRIMARY then
+                                   element.TextColor3 == THEMES.ExtraDark.TEXT_PRIMARY or
+                                   element.TextColor3 == THEMES.Ruby.TEXT_PRIMARY then
                                     element.TextColor3 = currentColors.TEXT_PRIMARY
                                 elseif element.TextColor3 == THEMES.Normal.TEXT_SECONDARY or
                                        element.TextColor3 == THEMES.Dark.TEXT_SECONDARY or
-                                       element.TextColor3 == THEMES.ExtraDark.TEXT_SECONDARY then
+                                       element.TextColor3 == THEMES.ExtraDark.TEXT_SECONDARY or
+                                       element.TextColor3 == THEMES.Ruby.TEXT_SECONDARY then
                                     element.TextColor3 = currentColors.TEXT_SECONDARY
                                 end
                             end
@@ -128,11 +149,13 @@ function Labs:SetTheme(themeName)
                             if element:IsA("TextLabel") then
                                 if element.TextColor3 == THEMES.Normal.TEXT_PRIMARY or
                                    element.TextColor3 == THEMES.Dark.TEXT_PRIMARY or
-                                   element.TextColor3 == THEMES.ExtraDark.TEXT_PRIMARY then
+                                   element.TextColor3 == THEMES.ExtraDark.TEXT_PRIMARY or
+                                   element.TextColor3 == THEMES.Ruby.TEXT_PRIMARY then
                                     element.TextColor3 = currentColors.TEXT_PRIMARY
                                 elseif element.TextColor3 == THEMES.Normal.TEXT_SECONDARY or
                                        element.TextColor3 == THEMES.Dark.TEXT_SECONDARY or
-                                       element.TextColor3 == THEMES.ExtraDark.TEXT_SECONDARY then
+                                       element.TextColor3 == THEMES.ExtraDark.TEXT_SECONDARY or
+                                       element.TextColor3 == THEMES.Ruby.TEXT_SECONDARY then
                                     element.TextColor3 = currentColors.TEXT_SECONDARY
                                 end
                             end
@@ -140,11 +163,13 @@ function Labs:SetTheme(themeName)
                             if element:IsA("ImageLabel") then
                                 if element.ImageColor3 == THEMES.Normal.TEXT_PRIMARY or
                                    element.ImageColor3 == THEMES.Dark.TEXT_PRIMARY or
-                                   element.ImageColor3 == THEMES.ExtraDark.TEXT_PRIMARY then
+                                   element.ImageColor3 == THEMES.ExtraDark.TEXT_PRIMARY or
+                                   element.ImageColor3 == THEMES.Ruby.TEXT_PRIMARY then
                                     element.ImageColor3 = currentColors.TEXT_PRIMARY
                                 elseif element.ImageColor3 == THEMES.Normal.TEXT_SECONDARY or
                                        element.ImageColor3 == THEMES.Dark.TEXT_SECONDARY or
-                                       element.ImageColor3 == THEMES.ExtraDark.TEXT_SECONDARY then
+                                       element.ImageColor3 == THEMES.ExtraDark.TEXT_SECONDARY or
+                                       element.ImageColor3 == THEMES.Ruby.TEXT_SECONDARY then
                                     element.ImageColor3 = currentColors.TEXT_SECONDARY
                                 end
                             end
